@@ -4,7 +4,7 @@ import {Note} from "../../notes/types";
 import GuitarString from "./guitar-string.vue";
 
 defineProps<{
-  activeNotes?: (Note | null)[];
+  activeNotes?: Note[];
 }>()
 </script>
 

@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import { Note } from "../../notes/types";
+import {Note} from "../../notes/types";
 import {computed} from "vue";
 
 const props = defineProps<{
-  notes: Note[];
-  activeNotes?: (Note | null)[];
+  notes: (Note | null)[];
+  activeNotes?: Note[];
 }>();
 
 const TOTAL_POSITIONS = 13;
 const posLength = 100 / TOTAL_POSITIONS;
 
-const activeNotesSet = computed<Set<Note>>((): Set<Note> => {
-  const notes = props.activeNotes?.filter(note => !!note) as Note[] ?? [];
-  return new Set(notes);
-});
+const activeNotesSet = computed<Set<Note>>(() => new Set(props.activeNotes));
 </script>
 
 <template>
@@ -26,7 +23,7 @@ const activeNotesSet = computed<Set<Note>>((): Set<Note> => {
           left: `calc(${pos * posLength}% - ${posLength / 2}% - 5px)`,
         }"
         :class="{
-          active: activeNotesSet.has(notes[pos - 1]),
+          active: activeNotesSet.has(notes[pos - 1] as Note),
         }"
         class="dot"
     />
